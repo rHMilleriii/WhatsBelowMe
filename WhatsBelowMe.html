@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>What's below me?</title>
+<h1>What's below me?</h1>
+<h3>Search an address to get the nearest surficial geology and geological structure</h3>
+    <p>These USGS datasets come from State Geologic Map Compilation (SGMC) geodatabase of the conterminous United States. </p>
+      
+<p>Horton, J.D., San Juan, C.A., and Stoeser, D.B, 2017, The State Geologic Map Compilation (SGMC) geodatabase of the conterminous United States (ver. 1.1, August 2017): U.S. Geological Survey Data Series 1052, 46 p.
+</p>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 85%;
+        width: 100%;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.22/esri/themes/light/main.css"
+    />
+
+    <script src="https://js.arcgis.com/4.22/"></script>
+
+    <script>
+      require(["esri/views/MapView", "esri/WebMap", "esri/widgets/Search"], (MapView, WebMap, Search) => {
+        /************************************************************
+         * Creates a new WebMap instance. 
+		 
+		 * The WebMap contains two feature layers (Surface Geology and Geological Structures
+		 coming from the USGS.  Popups are enabled in this webmap as well as visibility
+		 ranges.  The basemap is the vector tile based topography basemap.
+         ************************************************************/
+        const webmap = new WebMap({
+          portalItem: {
+            // autocasts as new PortalItem()
+            id: "1d713bf2773f4ef9b3514533e274ee78"
+          }
+        });
+
+        /************************************************************
+         * Set the WebMap instance to the map property in a MapView.
+         ************************************************************/
+        const view = new MapView({
+          map: webmap,
+          container: "viewDiv"
+        });
+        /************************************************************
+         * Create the const for the Search Widget and disable popups.
+         ************************************************************/
+ const searchWidget = new Search({
+  view: view,
+  popupEnabled: false
+});
+
+// Adds the search widget below other elements in
+// the top right corner of the view
+view.ui.add(searchWidget, {
+  position: "top-right",
+  index: 2
+});
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
